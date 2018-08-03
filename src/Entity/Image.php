@@ -20,8 +20,8 @@ class Image
     /**
      * @ORM\Column(type="string")
      * 
-     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
-     * @Assert\File(mimeTypes={ "application/pdf" })
+     * @Assert\NotBlank(message="Attention ce fichier doit être une image ou un PDF.")
+     * @Assert\File(mimeTypes={ "application/pdf", "image/jpeg", "image/png", "image/gif" })
      */
     private $imagefield;
 
