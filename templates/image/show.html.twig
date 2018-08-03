@@ -8,12 +8,10 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ image.id }}</td>
-            </tr>
-            <tr>
                 <th>Imagefield</th>
                 <td>{{ image.imagefield }}</td>
+            
+                <img src="{{ asset('uploads/images/' ~ image.imagefield) }}" width="300">
             </tr>
         </tbody>
     </table>

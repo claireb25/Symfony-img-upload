@@ -35,7 +35,7 @@ class Image
         return $this->imagefield;
     }
 
-    public function setImagefield(string $imagefield): self
+    public function setImagefield(string $imagefield)
     {
         $this->imagefield = $imagefield;
 

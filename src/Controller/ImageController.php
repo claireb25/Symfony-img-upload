@@ -24,7 +24,7 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/image/new", name="image_new")
+     * @Route("/new", name="image_new")
      */
     public function new(Request $request): Response
     {
@@ -33,31 +33,37 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($image);
-            $em->flush();
+
 
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('imagefield')->getData();
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+    
+            $name = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
             $file->move(
                 $this->getParameter('image_directory'),
-                $fileName
+                $name
             );
 
             // updates the 'brochure' property to store the PDF file name
             // instead of its contents
-            $image->setImageField($fileName);
-
-          
-
-            return $this->redirectToRoute('image_index');
+            $image->setImageField($name);
+            // dump($name);
+            // dump($file);
+            dump($image);
+            return $this->redirect($this->generateUrl('image_index'));
+            // // return $this->redirectToRoute('image_index');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
+            $em->flush();
+        
+        
         }
 
         return $this->render('image/new.html.twig', [
-            'image' => $image,
+         
+            
             'form' => $form->createView(),
         ]);
     }
